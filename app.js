@@ -1,3 +1,13 @@
+// ==================== Proteksi Login ====================
+(async ()=>{
+  const { data } = await db.auth.getSession();
+  if(!data.session){
+    alert("Silakan login terlebih dahulu!");
+    window.location.href = "login.html";
+  }
+})();
+
+
 // ==================== Supabase Config ====================
 const supabaseUrl = "https://sojmbapgroetsgplshse.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNvam1iYXBncm9ldHNncGxzaHNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY0NzU4NzksImV4cCI6MjA3MjA1MTg3OX0.30hi6wuhjU0fcusAQLZbgBgw8z2UlOzRvMEXmIHX7hU"; // pakai anon public key
@@ -192,3 +202,18 @@ updateTanggal();
 
 // ==================== Init ====================
 fetchTransaksi();
+
+// ==================== Logout ====================
+const logoutBtn = document.getElementById("logoutBtn");
+
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", async () => {
+    const { error } = await db.auth.signOut();
+    if (error) {
+      alert("Gagal logout: " + error.message);
+    } else {
+      alert("✅ Logout berhasil!");
+      window.location.href = "login.html";
+    }
+  });
+}

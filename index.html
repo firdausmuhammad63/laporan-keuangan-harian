@@ -12,40 +12,21 @@
 
   <style>
   @media print {
-    /* Default: semua sembunyi */
-    body * {
-      display: none !important;
-    }
+    body * { display: none !important; }
+    #tabel, #tabel * { display: block !important; }
+    #tabel th:last-child, #tabel td:last-child { display: none !important; }
 
-    /* Hanya tampilkan bagian laporan */
-    #tabel, #tabel * {
-      display: block !important;
-    }
-
-    /* Sembunyikan kolom aksi di tabel cetak */
-    #tabel th:last-child,
-    #tabel td:last-child {
-      display: none !important;
-    }
-
-    /* Rapikan style print */
     #tabel {
       width: 100%;
       margin: 0 auto;
       font-family: Arial, sans-serif;
     }
-
-    #tabel h1 {
-      margin-bottom: 15px;
-      text-align: center;
-    }
-
+    #tabel h1 { margin-bottom: 15px; text-align: center; }
     #tabel table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 10px;
     }
-
     #tabel th, #tabel td {
       border: 1px solid #444;
       padding: 6px;
@@ -54,24 +35,29 @@
     }
   }
   </style>
-
 </head>
 <body class="bg-gradient-to-tr from-sky-100 to-sky-200 font-sans min-h-screen">
 
-  <!-- Judul -->
-  <h1 class="text-4xl font-extrabold mb-6 mt-6 text-center text-gray-800 drop-shadow">
-    Laporan Keuangan Harian
-  </h1>
+  <!-- Judul + Tombol Logout -->
+  <div class="flex justify-between items-center max-w-6xl mx-auto px-4 mt-6 mb-6">
+    <h1 class="text-4xl font-extrabold text-gray-800 drop-shadow">
+      Laporan Keuangan Harian
+    </h1>
+    <button id="logoutBtn" 
+            class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 active:scale-105 transition">
+      Logout
+    </button>
+  </div>
 
   <!-- Tanggal -->
   <div id="tanggalNow" class="bg-gradient-to-l from-orange-200 to-orange-400 text-center text-lg md:text-xl 
-                              drop-shadow-lg font-semibold text-slate-800 mb-6 rounded-xl p-3">
+                              drop-shadow-lg font-semibold text-slate-800 mb-6 rounded-xl p-3 max-w-3xl mx-auto">
     <p>Tanggal</p>
     <p id="tanggal"></p>
   </div>
 
   <!-- Dashboard -->
-  <div id="dashboard" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+  <div id="dashboard" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8 max-w-6xl mx-auto px-4">
     
     <!-- Saldo -->
     <div class="bg-gradient-to-r from-green-300 to-green-600 p-5 rounded-xl shadow-lg 
@@ -131,7 +117,7 @@
   </div>
 
   <!-- Form Input -->
-  <div class="bg-white p-6 rounded-xl shadow-lg mb-6">
+  <div class="bg-white p-6 rounded-xl shadow-lg mb-6 max-w-6xl mx-auto px-4">
     <form id="formTransaksi" class="flex flex-col sm:flex-row gap-3 items-center">
       <input type="text" id="deskripsi" placeholder="Deskripsi" 
              class="border p-3 rounded-lg flex-1 focus:ring-2 focus:ring-blue-400">
@@ -157,18 +143,20 @@
   </div>
 
   <!-- Chart -->
-  <div class="bg-white p-6 rounded-xl shadow-lg mb-6">
+  <div class="bg-white p-6 rounded-xl shadow-lg mb-6 max-w-6xl mx-auto px-4">
     <canvas id="chartKeuangan"></canvas>
   </div>
 
   <!-- Tombol Cetak -->
-  <button type="button" onclick="cetakLaporan()" 
-    class="bg-green-500 text-white px-4 py-2 rounded-lg mb-6 hover:bg-green-600 active:scale-95 transition-all">
-    Cetak Laporan
-  </button>
+  <div class="max-w-6xl mx-auto px-4">
+    <button type="button" onclick="cetakLaporan()" 
+      class="bg-green-500 text-white px-4 py-2 rounded-lg mb-6 hover:bg-green-600 active:scale-95 transition-all">
+      Cetak Laporan
+    </button>
+  </div>
 
   <!-- Tabel -->
-  <div id="tabel" class="bg-white p-6 rounded-xl shadow-lg overflow-x-auto">
+  <div id="tabel" class="bg-white p-6 rounded-xl shadow-lg overflow-x-auto max-w-6xl mx-auto px-4 mb-10">
     <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-gray-50">
         <tr>
@@ -177,7 +165,6 @@
           <th class="px-4 py-2 text-left text-gray-600 font-medium">Tipe</th>
           <th class="px-4 py-2 text-left text-gray-600 font-medium">Timestamp</th>
           <th class="px-4 py-2 text-left text-gray-600 font-medium">Aksi</th>
-
         </tr>
       </thead>
       <tbody id="tabelTransaksi" class="divide-y divide-gray-100"></tbody>
